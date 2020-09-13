@@ -7,7 +7,7 @@
         "price": 27.99
     },
     {
-        "id": 1,
+        "id": 2,
         "name": "Imported Chocolate",
         "category": "Food",
         "imported": true,
