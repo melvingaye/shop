@@ -1,0 +1,44 @@
+{"items": [
+    {
+        "id": 1,
+        "name": "Imported Perfume",
+        "category": "Luxury",
+        "imported": true,
+        "price": 27.99
+    },
+    {
+        "id": 1,
+        "name": "Imported Chocolate",
+        "category": "Food",
+        "imported": true,
+        "price": 10.00
+    },
+    {
+        "id": 3,
+        "name": "Dictionary",
+        "category": "Book",
+        "imported": false,
+        "price": 12.49
+    },
+    {
+        "id": 4,
+        "name": "Chocolate",
+        "category": "Food",
+        "imported": false,
+        "price": 0.85
+    },
+    {
+        "id": 5,
+        "name": "Advil",
+        "category": "Medical",
+        "imported": false,
+        "price": 9.75
+    },
+    {
+        "id": 6,
+        "name": "Music",
+        "category": "Entertainment",
+        "imported": false,
+        "price": 14.99
+    }
+]}
