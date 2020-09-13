@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './App.css';
+import axios from 'axios'
+import Items  from './Components/Items';
+import { Header } from './Components/Layout/Header';
+import { AddItem } from './Components/Pages/AddItem';
+import { Cart } from './Components/Pages/Cart';
+import { Item } from './Components/Item'
 
-function App() {
+const App: React.FC = () => {
+ const [inventory, setInventory] = useState([]);
+ let cartItems: any = [];
+
+ useEffect(() => {
+   axios.get('https://my-json-server.typicode.com/melvingaye/shop/items')
+   .then( res => setInventory(res.data))
+   .catch( err => console.log(err))},[])
+
+   let addItem = (addedItem: Item, count: number) => {
+     //debugger;
+     var found = cartItems.findIndex((element: any)=>{ return element.addedItem.id === addedItem.id})
+     if(found > -1){
+       cartItems[found].count = count;
+     } else {
+      cartItems.push({addedItem, count})
+     }
+   }
+
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container-root"> 
+      <Header />
+      <Switch>
+      <Route path="/" render={()=><Items inventory={inventory} addItem={addItem}/>} exact/>
+      <Route path="/add" component={AddItem}/>
+      <Route path="/cart" render={()=><Cart cartItems={cartItems}/>}/>
+      </Switch>
+      </div>
     </div>
+    </Router>
   );
 }
 

@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## Assumptions
+Create a general store with standard features, such as adding items to a cart and removing items, and checking out (minus payment)
+Design choices were made for maximum readability.
+
 ## Available Scripts
 
 In the project directory, you can run:
