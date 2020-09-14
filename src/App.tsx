@@ -4,7 +4,7 @@ import './App.css';
 import axios from 'axios'
 import Items  from './Components/Items';
 import { Header } from './Components/Layout/Header';
-import { AddItem } from './Components/Pages/AddItem';
+import { CreateItem } from './Components/Pages/CreateItem';
 import { Cart } from './Components/Pages/Cart';
 import { Item } from './Components/Item'
 
@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
  useEffect(() => {
    axios.get('https://my-json-server.typicode.com/melvingaye/shop/items')
-   .then( res => setInventory(res.data))
+   .then( res =>{ console.log(res);  setInventory(res.data);})
    .catch( err => console.log(err))},[])
 
    let addItem = (addedItem: Item, count: number) => {
@@ -27,6 +27,19 @@ const App: React.FC = () => {
      }
    }
 
+   let createItem = (name: string, category: string, price: number, imported: boolean) =>{
+     var id = inventory.length + 1;
+     var locPrice = price.toString()
+     price = parseFloat(locPrice)
+     axios.post(`https://my-json-server.typicode.com/melvingaye/shop/items`,{id, name, category, price, imported})
+     .then(res => {
+       debugger
+       var loclItem = (res.data as never)
+       setInventory([...inventory, loclItem])
+      })
+     .catch(err => console.log(err))
+   }
+   
   return (
     <Router>
     <div className="App">
@@ -34,7 +47,7 @@ const App: React.FC = () => {
       <Header />
       <Switch>
       <Route path="/" render={()=><Items inventory={inventory} addItem={addItem}/>} exact/>
-      <Route path="/add" component={AddItem}/>
+      <Route path="/add" render={()=><CreateItem createItem={createItem}/>}/>
       <Route path="/cart" render={()=><Cart cartItems={cartItems}/>}/>
       </Switch>
       </div>

@@ -10,6 +10,7 @@ export interface CartProps {
 }
 
 export const Cart: React.FC<CartProps> = ({cartItems}) => {
+        //debugger;
         
         enum TaxConstants {
             ImportedExempt = .05,
@@ -35,20 +36,17 @@ export const Cart: React.FC<CartProps> = ({cartItems}) => {
 
             if(item.imported && exemptCategories.includes(item.category)){
                calculatedTax = roundToTwo(item.price * TaxConstants.ImportedExempt)
-               itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2)) 
-              // item.price = item.price + calculatedTax               
+               itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2))                           
             }
 
             if(!item.imported && !exemptCategories.includes(item.category)){
                 calculatedTax = roundToTwo(item.price * TaxConstants.StandardTax)
-                itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2))    
-                //item.price = item.price + calculatedTax              
+                itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2))                               
             }
 
             if(item.imported && !exemptCategories.includes(item.category)){
                 calculatedTax = roundToTwo(item.price * TaxConstants.ImportedNonExempt)
-                itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2))   
-               // item.price = item.price + calculatedTax               
+                itemTotal = parseFloat(((item.price + calculatedTax) * count).toFixed(2))               
             }
 
             totalPrice.push(itemTotal)
@@ -59,6 +57,11 @@ export const Cart: React.FC<CartProps> = ({cartItems}) => {
         function calculateTotalTax(){
             var tax: number = taxTotal.reduce((a: number, b: number)=>{return a + b},0)
             return parseFloat(tax.toFixed(2))
+        }
+
+        function CalculateTotalPrice(){
+           var price: number = totalPrice.reduce((a: number, b: number)=>{return a + b}, 0)
+           return parseFloat(price.toFixed(2))
         }
 
         return (
@@ -74,7 +77,7 @@ export const Cart: React.FC<CartProps> = ({cartItems}) => {
             </div>
             <div>
             <li>Sales tax: ${calculateTotalTax()}</li>
-            <li>Total price: ${totalPrice.reduce((a: number, b: number)=>{return a + b}, 0) + taxTotal.reduce((a: number, b: number)=>{return a + b},0) }</li>
+            <li>Total price: ${CalculateTotalPrice()}</li>
             </div>
         </div>
         );
